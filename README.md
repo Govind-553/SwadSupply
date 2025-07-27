@@ -1,70 +1,157 @@
-# Getting Started with Create React App
+# SwadSupply 🍛  
+**AI-Powered Raw Material Sourcing Platform for Street Food Vendors**
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+SwadSupply is a hackathon-ready, real-world platform that empowers India’s street food vendors by connecting them with trusted local raw material suppliers. Using AI-backed price verification and group-buying features, SwadSupply ensures fair prices, faster sourcing, and simplified vendor-supplier interaction.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 🚀 Demo
 
-### `npm start`
+🌐 Live Demo (Frontend): _[Link if hosted]_  
+🔗 API Test Playground: _[Replit/Flask endpoint]_  
+📽️ Walkthrough Video: _[Attach if recorded]_
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## 📌 Problem Statement
 
-### `npm test`
+Street vendors face daily issues sourcing raw materials:
+- Fluctuating & unfair prices
+- Lack of trusted suppliers
+- No digital price benchmarks (like mandi prices)
+- Language/digital literacy barriers
+- Wasted time in procurement
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## ✅ Solution
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+SwadSupply solves this with:
+- AI-based real-time mandi price comparison
+- Nearby trusted supplier discovery
+- Group ordering to lower costs
+- Voice-activated search and ordering
+- Supplier dashboard for inventory & delivery
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+---
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## 🧠 Key Features
 
-### `npm run eject`
+- 🧠 **AI Price Validator:** Compares current prices with Agmarknet mandi prices  
+- 📍 **Nearby Supplier Discovery:** Lists trusted vendors based on live geolocation  
+- 👥 **Group Buying:** Multiple vendors in the same area can place bulk orders  
+- 🗣️ **Voice Search in Hindi/English:** Use voice to search or place orders  
+- 📦 **Supplier Dashboard:** Manage listings, prices, delivery, and fulfillment  
+- 🔐 **Secure Auth:** Firebase-based role-based authentication for vendors & suppliers  
+- 🧾 **Smart Order Suggestions:** Based on previous purchase behavior  
+- 📊 **Vendor Trust Score:** Score based on delivery speed, order accuracy, and ratings
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+---
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## 🧑‍💼 User Flow
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### 👨‍🍳 Buyer (Street Food Vendor)
+1. Logs in or signs up
+2. Searches for raw materials (text or voice)
+3. Compares prices with mandi rates
+4. Selects supplier (sorted by trust score & distance)
+5. Can join a group order for bulk discount
+6. Confirms order & views delivery ETA
+7. Rates supplier post-delivery
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 🧺 Seller (Raw Material Supplier)
+1. Logs into dashboard
+2. Uploads available inventory, pricing & delivery window
+3. Receives new orders or group orders
+4. Confirms dispatch & marks delivery done
+5. Gets rated and improves trust score
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## 🛠️ Tech Stack
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+| Layer       | Technology Used                                      |
+|------------|------------------------------------------------------ |
+| Frontend   | CSS3, JavaScript, React.js                            |
+| Backend    | Firebase Realtime DB, Firebase Auth, Flask (Python)   |
+| AI / APIs  | Agmarknet API (Gov. of India), Web Speech API         |
+| Maps       | Leaflet.js (Open-source mapping)                      |
+| Hosting    | Vercel / Netlify (Frontend), Firebase Hosting         |
+| DevTools   | Flask, GitHub                                         |
 
-### Code Splitting
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+## 📦 Folder Structure
 
-### Analyzing the Bundle Size
+swadsupply/
+│
+├── client/ # React Frontend
+│ ├── public/
+│ └── src/
+│ ├── components/
+│ └── styles/
+│
+├── server/ # Flask API for price comparison
+│ └── app.py
+│
+├── firebase/ # Firebase config & structure
+│ └── firebase.js
+│
+├── README.md
+├── feature_checklist.md
+└── package.json
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+yaml
+Copy
+Edit
 
-### Making a Progressive Web App
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+## 🔐 Firebase Setup
 
-### Advanced Configuration
+- Enable **Authentication** (Email/Phone)
+- Create two roles: `vendor`, `supplier`
+- Realtime DB Structure:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+```json
+/vendors/{vendorId}
+  - name
+  - location
+  - orderHistory
 
-### Deployment
+/suppliers/{supplierId}
+  - name
+  - items[]
+  - deliveryTimes
+  - trustScore
+🧪 How to Run Locally
+Clone the repo:
+git clone https://github.com/yourname/swadsupply.git
+Install dependencies:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+cd swadsupply/client
+npm install
+Start frontend:
 
-### `npm run build` fails to minify
+npm start
+Run Flask API (Python):
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+cd server
+python app.py
+💡 Future Enhancements
+Multi-language support
+
+Payment gateway integration (UPI for COD)
+
+Analytics for suppliers
+
+SMS alerts for order status
+
+🏁 Team
+Govind [Team Lead, Frontend Dev]
+
+Abhiruchi[Teammate 2 – Backend & AI]
+
+Sahil[Teammate 3 – Firebase & UX]
+
+Nishank[Teammate 4 – Testing & Deployment]
