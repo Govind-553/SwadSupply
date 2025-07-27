@@ -3,6 +3,8 @@ from flask_cors import CORS
 import os
 from dotenv import load_dotenv
 
+from app.firebase_config import init_firebase  # ✅ FIXED: moved to the top-level import
+
 load_dotenv()
 
 def create_app():
@@ -12,7 +14,7 @@ def create_app():
     CORS(app, origins=[os.environ.get('CORS_ORIGINS', 'http://localhost:3000')])
 
     # ✅ Initialize Firebase
-    from firebase import firebase_config
+    init_firebase()
 
     # Register blueprints
     from app.routes.auth import auth_bp
