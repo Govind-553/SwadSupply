@@ -1,1 +1,0 @@
-from .firebase_config import initialize_firebase
