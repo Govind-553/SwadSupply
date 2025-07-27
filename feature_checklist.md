@@ -41,5 +41,4 @@
 
 ## 🏁 Hackathon Readiness
 - [x] Pitch-ready README.md
-- [x] Demo-ready flow and script
 - [x] Problem-solution-impact alignment
