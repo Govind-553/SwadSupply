@@ -35,7 +35,7 @@ const Login = () => {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-header">
-          <h2>🍛 RasoiLink Login</h2>
+          <h2>🍛 SwadSupply Login</h2>
           <p>Welcome back! Sign in to your account</p>
         </div>
         
