@@ -75,7 +75,6 @@ SwadSupply solves this with:
 | Frontend   | CSS3, JavaScript, React.js                            |
 | Backend    | Firebase Realtime DB, Firebase Auth, Flask (Python)   |
 | AI / APIs  | Agmarknet API (Gov. of India), Web Speech API         |
-| Maps       | Leaflet.js (Open-source mapping)                      |
 | Hosting    | Vercel / Netlify (Frontend), Firebase Hosting         |
 | DevTools   | Flask, GitHub                                         |
 
