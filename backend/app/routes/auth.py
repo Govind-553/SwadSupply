@@ -10,9 +10,17 @@ auth_bp = Blueprint('auth', __name__)
 if not firebase_admin._apps:
     firebase_config = os.environ.get('FIREBASE_CONFIG')
     if firebase_config:
-        cred = credentials.Certificate(json.loads(firebase_config))
+        try:
+            # Print for debugging if needed
+            # print("FIREBASE_CONFIG:", firebase_config)
+            cred = credentials.Certificate(json.loads(firebase_config))
+        except Exception as e:
+            raise RuntimeError(f"Failed to load FIREBASE_CONFIG: {e}")
     else:
-        cred = credentials.Certificate(os.environ.get('FIREBASE_CREDENTIALS_PATH'))
+        firebase_credentials_path = os.environ.get('FIREBASE_CREDENTIALS_PATH')
+        if not firebase_credentials_path:
+            raise RuntimeError("No Firebase credentials found in environment variables.")
+        cred = credentials.Certificate(firebase_credentials_path)
     firebase_admin.initialize_app(cred, {
         'databaseURL': os.environ.get('FIREBASE_DATABASE_URL')
     })

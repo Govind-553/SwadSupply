@@ -232,10 +232,15 @@ const ManageInventory = ({ products, user }) => {
             <div key={product.id} className="inventory-product-card">
               <div className="product-image">
                 <img 
-                  src={product.image || '/placeholder-product.jpg'} 
-                  alt={product.name}
-                  onError={(e) => e.target.src = '/placeholder-product.jpg'}
-                />
+                src={product.image && product.image.trim() !== '' ? product.image : '/placeholder-product.jpg'} 
+                alt={product.name}
+                onError={(e) => {
+                if (e.target.src !== window.location.origin + '/placeholder-product.jpg') {
+                e.target.onerror = null; // Prevent infinite loop
+                e.target.src = '/placeholder-product.jpg';
+    }
+  }}
+/>
               </div>
 
               <div className="product-details">
