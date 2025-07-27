@@ -1,0 +1,28 @@
+{
+  "rules": {
+    "users": {
+      "$uid": {
+        ".read": "$uid === auth.uid",
+        ".write": "$uid === auth.uid"
+      }
+    },
+    "suppliers": {
+      ".read": "auth != null",
+      "$supplierId": {
+        ".write": "auth.uid === $supplierId"
+      }
+    },
+    "orders": {
+      "$orderId": {
+        ".read": "auth.uid === data.child('vendorId').val() || auth.uid === data.child('supplierId').val()",
+        ".write": "auth.uid === data.child('vendorId').val() || auth.uid === data.child('supplierId').val()"
+      }
+    },
+    "products": {
+      ".read": "auth != null"
+    },
+    "mandi_prices": {
+      ".read": "auth != null"
+    }
+  }
+}
