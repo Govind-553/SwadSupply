@@ -12,7 +12,7 @@ def create_app():
     CORS(app, origins=[os.environ.get('CORS_ORIGINS', 'http://localhost:3000')])
 
     # ✅ Initialize Firebase
-    from .firebase import firebase_config
+    from app.firebase import firebase_config
 
     # Register blueprints
     from app.routes.auth import auth_bp
