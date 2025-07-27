@@ -41,7 +41,7 @@ const Footer = () => {
       </div>
       
       <div className="footer-bottom">
-        <p>&copy; 2024 RasoiLink. All rights reserved. Made with ❤️ for Indian street food vendors.</p>
+        <p>&copy; 2025 SwadSupply. All rights reserved. Made with ❤️ for Indian street food vendors.</p>
       </div>
     </footer>
   );
