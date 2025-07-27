@@ -44,7 +44,7 @@ const Register = () => {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-header">
-          <h2>🍛 Join RasoiLink</h2>
+          <h2>🍛 SwadSupply</h2>
           <p>Create your account to get started</p>
         </div>
         

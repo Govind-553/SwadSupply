@@ -9,7 +9,7 @@ const LoadingSpinner = () => {
         <div className="spinner-ring"></div>
         <div className="spinner-ring"></div>
       </div>
-      <p>Loading RasoiLink...</p>
+      <p>Loading Swadsupply...</p>
     </div>
   );
 };

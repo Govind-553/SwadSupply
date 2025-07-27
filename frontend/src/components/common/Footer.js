@@ -5,7 +5,7 @@ const Footer = () => {
     <footer className="app-footer">
       <div className="footer-container">
         <div className="footer-section">
-          <h3>🍛 RasoiLink</h3>
+          <h3>🍛 SwadSupply</h3>
           <p>Connecting street food vendors with trusted suppliers across India</p>
         </div>
         

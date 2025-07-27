@@ -36,7 +36,7 @@ const RoleSelection = ({ setUserRole }) => {
       <div className="role-selection-card">
         <div className="role-header">
           <h2>🍛 Choose Your Role</h2>
-          <p>Select how you'll be using RasoiLink</p>
+          <p>Select how you'll be using SwadSupply</p>
         </div>
         
         {error && <div className="error-message">{error}</div>}

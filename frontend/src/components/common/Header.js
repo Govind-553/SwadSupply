@@ -14,7 +14,7 @@ const Header = ({ user, userRole }) => {
     <header className="app-header">
       <div className="header-container">
         <div className="logo">
-          <h1>🍛 RasoiLink</h1>
+          <h1>🍛 SwadSupply</h1>
           <p>AI-Powered Raw Material Sourcing</p>
         </div>
         
