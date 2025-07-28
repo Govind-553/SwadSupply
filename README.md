@@ -8,7 +8,6 @@ SwadSupply is a hackathon-ready, real-world platform that empowers India’s str
 ## 🚀 Demo
 
 - 🌐 **Live Demo (Frontend):** https://swad-supply.vercel.app/  
-- 🔗 **API Playground:** _[Replit/Flask endpoint]_  
 - 📽️ **Walkthrough Video:** _[Attach if recorded]_
 
 ---
