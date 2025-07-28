@@ -80,7 +80,7 @@ SwadSupply solves these problems with:
 | Backend    | Firebase Realtime DB, Firebase Auth, Flask (Python)   |
 | AI / APIs  | Agmarknet API (Gov. of India), Web Speech API         |
 | Maps       | Leaflet.js (Open-source mapping)                      |
-| Hosting    | Vercel / Netlify (Frontend), Firebase Hosting         |
+| Hosting    | Vercel (Frontend), Firebase Hosting         |
 | DevTools   | Flask, GitHub                                         |
 
 ---
