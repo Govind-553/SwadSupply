@@ -8,10 +8,17 @@ const BrowseMaterials = ({ user }) => {
   const [cart, setCart] = useState([]);
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [userProfile, setUserProfile] = useState(null);
 
   const categories = ['all', 'vegetables', 'spices', 'oils', 'grains', 'dairy'];
 
   useEffect(() => {
+    // Fetch user profile for delivery address
+    const userRef = ref(database, `users/${user.uid}`);
+    onValue(userRef, (snapshot) => {
+      setUserProfile(snapshot.val());
+    });
+
     // Fetch products
     const productsRef = ref(database, 'products');
     onValue(productsRef, (snapshot) => {
@@ -28,7 +35,7 @@ const BrowseMaterials = ({ user }) => {
 
     // Fetch mandi prices
     fetchMandiPrices();
-  }, []);
+  }, [user.uid]);
 
   const fetchMandiPrices = async () => {
     try {
@@ -70,23 +77,68 @@ const BrowseMaterials = ({ user }) => {
   };
 
   const placeOrder = async () => {
-    if (cart.length === 0) return;
+    if (cart.length === 0) {
+      alert('Your cart is empty!');
+      return;
+    }
+
+    if (!userProfile) {
+      alert('Please complete your profile first!');
+      return;
+    }
 
     try {
-      const order = {
-        vendorId: user.uid,
-        items: cart,
-        totalAmount: cart.reduce((sum, item) => sum + (item.price * item.quantity), 0),
-        status: 'pending',
-        createdAt: new Date().toISOString(),
-        deliveryAddress: 'User Address', // This should come from user profile
-      };
+      // Group cart items by supplier
+      const ordersBySupplier = {};
+      
+      cart.forEach(item => {
+        const supplierId = item.supplierId;
+        if (!ordersBySupplier[supplierId]) {
+          ordersBySupplier[supplierId] = {
+            supplierId: supplierId,
+            supplierName: item.supplierName,
+            items: [],
+            totalAmount: 0
+          };
+        }
+        
+        ordersBySupplier[supplierId].items.push({
+          id: item.id,
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          unit: item.unit
+        });
+        
+        ordersBySupplier[supplierId].totalAmount += item.price * item.quantity;
+      });
 
-      const ordersRef = ref(database, 'orders');
-      await push(ordersRef, order);
+      // Create separate orders for each supplier
+      const orderPromises = Object.values(ordersBySupplier).map(async (supplierOrder) => {
+        const orderData = {
+          vendorId: user.uid,
+          vendorName: user.displayName || userProfile.name,
+          vendorPhone: userProfile.phone || 'Not provided',
+          vendorEmail: user.email,
+          supplierId: supplierOrder.supplierId,
+          supplierName: supplierOrder.supplierName,
+          items: supplierOrder.items,
+          totalAmount: supplierOrder.totalAmount,
+          status: 'pending',
+          deliveryAddress: userProfile.address || 'Address not provided',
+          createdAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString(),
+          estimatedDelivery: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), // 24 hours from now
+        };
+
+        const ordersRef = ref(database, 'orders');
+        return await push(ordersRef, orderData);
+      });
+
+      await Promise.all(orderPromises);
       
       setCart([]);
-      alert('Order placed successfully!');
+      alert(`Successfully placed ${Object.keys(ordersBySupplier).length} order(s)!`);
     } catch (error) {
       console.error('Error placing order:', error);
       alert('Failed to place order. Please try again.');
@@ -127,7 +179,13 @@ const BrowseMaterials = ({ user }) => {
           return (
             <div key={product.id} className="product-card">
               <div className="product-image">
-                <img src={product.image || '/placeholder-product.jpg'} alt={product.name} />
+                <img 
+                  src={product.image || '/placeholder-product.jpg'} 
+                  alt={product.name}
+                  onError={(e) => {
+                    e.target.src = '/placeholder-product.jpg';
+                  }}
+                />
               </div>
               <div className="product-info">
                 <h3>{product.name}</h3>
@@ -146,8 +204,8 @@ const BrowseMaterials = ({ user }) => {
                   )}
                 </div>
                 <div className="supplier-info">
-                  <span>📍 {product.supplierLocation}</span>
-                  <span>⭐ {product.supplierRating || '4.5'}</span>
+                  <span>📍 {product.supplierName}</span>
+                  <span>📦 Stock: {product.quantity} {product.unit}</span>
                 </div>
                 <div className="product-actions">
                   <div className="quantity-controls">
