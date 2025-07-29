@@ -205,8 +205,45 @@ const ManageInventory = ({ products, user }) => {
                   name="image"
                   value={formData.image}
                   onChange={handleInputChange}
-                  placeholder="https://example.com/image.jpg"
+                  placeholder="https://example.com/image.jpg (Direct image URL only)"
                 />
+                <small style={{ color: '#666', fontSize: '12px', display: 'block', marginTop: '5px' }}>
+                  ⚠️ Use direct image URLs only (ending with .jpg, .png, .gif). Pinterest/social media page URLs won't work.
+                </small>
+                {formData.image && (
+                  <div className="image-preview" style={{ marginTop: '10px' }}>
+                    <img
+                      src={formData.image}
+                      alt="Preview"
+                      style={{ 
+                        width: '100px', 
+                        height: '100px', 
+                        objectFit: 'cover', 
+                        borderRadius: '8px',
+                        border: '1px solid #ddd'
+                      }}
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        // Show error message
+                        const errorMsg = e.target.parentNode.querySelector('.error-msg');
+                        if (!errorMsg) {
+                          const msg = document.createElement('div');
+                          msg.className = 'error-msg';
+                          msg.style.color = 'red';
+                          msg.style.fontSize = '12px';
+                          msg.style.marginTop = '5px';
+                          msg.textContent = '❌ Invalid image URL. Please use a direct image link.';
+                          e.target.parentNode.appendChild(msg);
+                        }
+                      }}
+                      onLoad={(e) => {
+                        // Remove error message if image loads
+                        const errorMsg = e.target.parentNode.querySelector('.error-msg');
+                        if (errorMsg) errorMsg.remove();
+                      }}
+                    />
+                  </div>
+                )}
               </div>
 
               <div className="form-actions">
@@ -231,16 +268,22 @@ const ManageInventory = ({ products, user }) => {
           products.map(product => (
             <div key={product.id} className="inventory-product-card">
               <div className="product-image">
-                <img 
-                src={product.image && product.image.trim() !== '' ? product.image : '/placeholder-product.jpg'} 
-                alt={product.name}
-                onError={(e) => {
-                if (e.target.src !== window.location.origin + '/placeholder-product.jpg') {
-                e.target.onerror = null; // Prevent infinite loop
-                e.target.src = '/placeholder-product.jpg';
-    }
-  }}
-/>
+                <img
+                  src={product.image && product.image.trim() !== '' ? product.image : '/placeholder-product.jpg'}
+                  alt={product.name || 'Product'}
+                  style={{
+                    width: '100%',
+                    height: '200px',
+                    objectFit: 'contain',
+                    borderRadius: '8px 8px 0 0'
+                  }}
+                  onError={(e) => {
+                    if (e.target.src !== window.location.origin + '/placeholder-product.jpg') {
+                      e.target.onerror = null; // Prevent infinite loop
+                      e.target.src = '/placeholder-product.jpg';
+                    }
+                  }}
+                />
               </div>
 
               <div className="product-details">

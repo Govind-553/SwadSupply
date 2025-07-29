@@ -96,4 +96,4 @@ class Order:
             notes=data.get('notes'),
             delivery_fee=data.get('delivery_fee', 0.0),
             discount=data.get('discount', 0.0)
-        )
+        )             

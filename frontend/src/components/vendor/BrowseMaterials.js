@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ref, onValue, push, set } from 'firebase/database';
+import { ref, onValue, push} from 'firebase/database';
 import { database } from '../../services/firebase';
 
 const BrowseMaterials = ({ user }) => {
